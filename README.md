@@ -1,7 +1,5 @@
 # microserviceA_361
 
-from pathlib import Path
-
 readme_content = """
 # Competitor Pricing Microservice – Communication Contract
 
@@ -57,7 +55,7 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
 ### `COMPETITOR_PRICE_BATCH' – Batch Price Lookup
 
 #### Request Format:
-
+'''json
 {
   "api_type": "COMPETITOR_PRICE_BATCH",
   "requests": [
