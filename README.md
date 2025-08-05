@@ -174,3 +174,10 @@ print("Received response:", json.dumps(response, indent=2))
 
 ## Reminder
 - Only UPCs that exist in `pricing_data.json` will return valid results.
+
+---
+
+## Pricing API Sequence Diagram
+
+<img width="789" height="527" alt="Screenshot 2025-08-05 at 00 05 00" src="https://github.com/user-attachments/assets/641791c8-d836-4bfa-98bf-484a7fa7c299" />
+
