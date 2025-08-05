@@ -1,9 +1,8 @@
 # microserviceA_361
 
-readme_content = """
 # Competitor Pricing Microservice – Communication Contract
 
-Provides competitor pricing data for specific UPCs via **ZeroMQ** using a **JSON-based protocol**. Supports three API types:
+The microservice provides competitor pricing data for specific UPCs via ZeroMQ using a JSON-based protocol. Supports three API types:
 
 - `COMPETITOR_PRICE` – Get price for a single UPC  
 - `COMPETITOR_PRICE_BATCH` – Get prices for multiple UPCs  
@@ -14,10 +13,11 @@ Provides competitor pricing data for specific UPCs via **ZeroMQ** using a **JSON
 ## Microservice Setup
 
 **Binding Address:**  
-The microservice listens on: tcp://localhost:5678
+The microservice listens on:
 
-
-Make sure to start the service before attempting to connect.
+```
+tcp://localhost:5678
+```
 
 ---
 
@@ -27,10 +27,11 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
 
 ---
 
-### `COMPETITOR_PRICE` – Single Price Lookup
+###  `COMPETITOR_PRICE` – Single Price Lookup
 
 #### Request Format:
 
+```json
 {
   "api_type": "COMPETITOR_PRICE",
   "request": {
@@ -38,9 +39,11 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     "upc": "123456789101"
   }
 }
+```
 
 #### Response Format:
 
+```json
 {
   "api_type": "COMPETITOR_PRICE",
   "response": {
@@ -50,12 +53,15 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     "price": "19.99"
   }
 }
+```
 
+---
 
-### `COMPETITOR_PRICE_BATCH' – Batch Price Lookup
+### `COMPETITOR_PRICE_BATCH` – Batch Price Lookup
 
 #### Request Format:
-'''json
+
+```json
 {
   "api_type": "COMPETITOR_PRICE_BATCH",
   "requests": [
@@ -69,9 +75,11 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     }
   ]
 }
+```
 
 #### Response Format:
 
+```json
 {
   "api_type": "COMPETITOR_PRICE_BATCH",
   "responses": [
@@ -89,11 +97,15 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     }
   ]
 }
+```
 
-### 'COMPETITOR_PRICE_BATCH_FLAG' – Compare Prices
+---
+
+### `COMPETITOR_PRICE_BATCH_FLAG` – Compare Prices
 
 #### Request Format:
 
+```json
 {
   "api_type": "COMPETITOR_PRICE_BATCH_FLAG",
   "requests": [
@@ -109,9 +121,11 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     }
   ]
 }
+```
 
 #### Response Format:
 
+```json
 {
   "api_type": "COMPETITOR_PRICE_BATCH_FLAG",
   "responses": [
@@ -129,10 +143,13 @@ Send a JSON message using `zmq.REQ` socket. The outer object must contain `api_t
     }
   ]
 }
+```
 
+---
 
-### Example Code - Client Side:
+## Example Python Code (Client Side)
 
+```python
 import zmq
 import json
 
@@ -140,7 +157,6 @@ context = zmq.Context()
 socket = context.socket(zmq.REQ)
 socket.connect("tcp://localhost:5678")
 
-# Example: Single price lookup
 msg = {
     "api_type": "COMPETITOR_PRICE",
     "request": {
@@ -152,4 +168,9 @@ msg = {
 socket.send_json(msg)
 response = socket.recv_json()
 print("Received response:", json.dumps(response, indent=2))
+```
 
+---
+
+## Reminder
+- Only UPCs that exist in `pricing_data.json` will return valid results.
