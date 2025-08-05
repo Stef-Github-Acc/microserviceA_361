@@ -1,0 +1,14 @@
+{
+  "123456789101": {
+    "retailer": "RetailerA",
+    "price": "10.99"
+  },
+  "123456789102": {
+    "retailer": "RetailerB",
+    "price": "11.49"
+  },
+  "123456789103": {
+    "retailer": "RetailerC",
+    "price": "9.99"
+  }
+}
